@@ -78,6 +78,52 @@ The curved lines in the diagram visually represent the divergence of the two bra
 #4.Introduction to Rebase
 What is Git Rebase
 Git rebase is the process of moving or replaying commits from one branch onto another branch, changing the base commit so the history becomes linear.
+<img width="1600" height="735" alt="image" src="https://github.com/user-attachments/assets/b4680746-9885-4de7-9c8b-366f73048951" />
+# Commands Executed
+```bash
+git branch bugfix
+```
+```
+git checkout bugfix
+```
+```
+git commit
+```
+```
+git checkout main
+```
+```
+git commit
+```
+```
+git checkout bugfix
+```
+```
+git rebase main
+```
+This screenshot shows how rebasing works in Git using two branches.
+The circles (C0, C1, C2, C3) represent commits created at different times on different branches.
+The main branch has its own commits, and the bugFix* label shows the branch where the bug fix work is done.
+First, commits are made separately on the main and bugFix branches.
+When the command git rebase main is used on the bugFix branch, Git takes the bug fix commit and places it on top of the latest commit of the main branch.
+After rebasing, both branches contain the same changes, and the commit history becomes clean and straight.
+This helps us understand how Git can organize commits neatly while keeping all changes.
+The commit history begins linearly from C0 to C1, after which it splits into two branches.
+The main branch points to commit C3, while the bugfix* branch is currently checked out and points to C2, as indicated by the * symbol showing that HEAD is on the bugfix branch.
+The diagram shows that the bugfix commit has been moved and reapplied on top of the latest commit of the main branch, resulting in a straight, linear history.
+The renaming of the commit to C2′ visually represents that the commit was recreated during the rebase process.
+
+# Level-2 [Ramping Up]
+1.Detach yo' HEAD
+
+Detach yo’ HEAD means that you are no longer working on a branch.
+Normally, HEAD points to a branch like main or bugFix. In a detached HEAD state, HEAD points directly to a commit instead of a branch.
+This usually happens when you checkout a specific commit.
+In this state, you can look at old code or test something, but any new commit you make will not belong to a branch.
+If you switch to another branch, those commits can be lost unless you create a new branch.
+This helps us understand why staying on a branch is important when making changes.
+
+
 
 
 
