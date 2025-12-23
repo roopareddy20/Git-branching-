@@ -122,6 +122,131 @@ This usually happens when you checkout a specific commit.
 In this state, you can look at old code or test something, but any new commit you make will not belong to a branch.
 If you switch to another branch, those commits can be lost unless you create a new branch.
 This helps us understand why staying on a branch is important when making changes.
+<img width="1918" height="913" alt="image" src="https://github.com/user-attachments/assets/db15e1ea-92fa-492f-9b71-109f1fefdb69" />
+# Command Executed
+```bash
+git checkout C4
+```
+This screenshot shows what happens when HEAD is detached in Git.
+The commits (C0, C1, C2, C3, C4) show the history of the project.
+At first, HEAD is normally connected to a branch like main or bugFix.
+When the command git checkout C4 is used, Git moves HEAD directly to commit C4.
+Now, HEAD is not pointing to any branch, it is pointing only to that commit.
+The branches (main and bugFix) stay where they were and do not move.
+This state is called detached HEAD.
+It helps us understand how Git can look at any old commit without changing branch history.
+
+# 2.Relative Refs (^)
+Remembering full commit hashes in Git is hard and annoying because they are very long.
+In real projects, you don’t see a picture of commits, so you use git log to find commit hashes.
+The good thing is, Git does not need the full hash. You can type only the first few characters, as long as they are unique.
+
+Still, using hashes is not very convenient. That’s why Git provides relative references.
+
+Relative references let you move around commits starting from something easy to remember, like HEAD or a branch name.
+
+There are two simple relative references:
+
+^ → moves one commit back
+~ → moves multiple commits back
+
+This makes it much easier to move through commit history without typing long hashes.
+<img width="1913" height="901" alt="image" src="https://github.com/user-attachments/assets/e35a0fa4-e9b6-4e55-b053-a3ebc4fd3b07" />
+# Commands Executed
+```base
+git checkout bugfix
+```
+```
+git checkout C3
+```
+In these screenshot
+Git checkout bugFix moves you to the bugFix branch.
+Git checkout C3 moves HEAD to commit C3, not to a branch, so this is called detached HEAD.
+The ^ symbol means go to the previous commit.
+
+# 3.Relative Refs #2 (~)
+The tilde (~) operator is used to move back multiple commits at once.
+Instead of using ^ again and again, ~ makes it easier and faster.
+The number after ~ tells Git how many commits to go back.
+
+<img width="1913" height="902" alt="image" src="https://github.com/user-attachments/assets/6ba47258-1a2e-41ab-8f1b-9446329062fa" />
+# Commands Executed
+```base
+git checkout C1
+```
+```
+git branch -f bugfix C0
+```
+```
+git branch -f main C6
+```
+These screenshot shows Git checkout C1 moves you directly to commit C1.
+Git branch -f bugFix C0 forces the bugFix branch to point to commit C0.
+Git branch -f main C6 forces the main branch to point to commit C6.
+
+# 4.Reversing Changes in Git
+When you mess up in Git, you have two main ways to fix it:
+
+1.git reset – “Go back in time.”
+It’s like saying, “Forget I ever made this change.”
+Can remove your files or commits completely.
+Be careful, because once it’s gone, it might be hard to get back.
+
+2.git revert – “Make a new fix.”
+It’s like saying, “I made a mistake, so here’s a new commit that undoes it.”
+Your history stays safe.
+<img width="1910" height="917" alt="image" src="https://github.com/user-attachments/assets/f7e68fc1-4bf7-406d-8869-ec48359e4dc6" />
+# Commands Executed
+```bash
+git checkout local
+```
+```
+git reset --hard C1
+```
+```
+git checkout pushed
+```
+```
+git revert pushed
+```
+Git checkout local moves you to the local branch.
+Git reset --hard C1 moves the branch back to commit C1 and removes later changes.
+Git checkout pushed switches you to the pushed branch.
+Git revert pushed creates a new commit that undoes the changes made in the pushed commit.
+
+# Level-3 [Moving Work Around]
+1.Cherry-pick Intro
+Git cherry-pick means taking one specific commit from another branch and applying it to your current branch.
+<img width="1918" height="915" alt="image" src="https://github.com/user-attachments/assets/e3d2b6ef-d303-4202-9fd2-704af184e132" />
+# Command Executed
+```bash
+git cherry-pick C3 C4 C7
+```
+C3- Git copies the changes from commit C3 and adds them to main as a new commit.
+C4- Then Git copies the changes from commit C4 and adds them after C3 on main.
+C7- Finally, Git copies the changes from commit C7 and adds them after C4 on main.
+
+# 2.Interactive Rebase Intro
+It lets you fix and arrange your past commits in a clean and simple way before saving them.
+<img width="1919" height="914" alt="image" src="https://github.com/user-attachments/assets/3ea9289a-9799-434f-8acb-a48ed7a87b22" />
+# Command Executed
+```bash
+git rebase -i HEAD~4
+```
+HEAD~4 → go back 4 commits from where you are now
+
+rebase -i → open an interactive screen to edit those commits
+
+
+
+
+
+
+
+
+
+
+
 
 
 
